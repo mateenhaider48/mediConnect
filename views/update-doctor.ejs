@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Doctor | MediConnect</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f4f6f9;
+      padding: 40px;
+       flex-direction: column;
+      min-height: 100vh;
+      background: url("/images/background.jpeg") 
+        no-repeat center center/cover;
+      overflow-x: hidden;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background:rgba(0,0,0,0.1);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0056b3;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      color:white;
+      background-color:rgba(0,0,0,0.3);
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      background: #0056b3;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #003d80;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Edit Doctor</h1>
+
+    <!-- Step 1: Search Doctor -->
+    <form id="findForm" action="/user/find-doctor" method="post">
+      <div class="form-group">
+        <label>Enter Doctor ID</label>
+        <input type="text" name="doc_id" placeholder="Enter doctor ID" required>
+      </div>
+      <button type="submit">Find Doctor</button>
+    </form>
+
+    <hr style="margin: 25px 0;">
+
+    <!-- Step 2: Update Doctor (shown after finding) -->
+    <form id="updateForm" action="/user/update-doctor" method="post" style="display:none;">
+      <input type="hidden" name="doc_id" id="edit_doc_id">
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="doc_name" id="edit_doc_name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="doc_email" id="edit_doc_email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="doc_phone" id="edit_doc_phone" required>
+      </div>
+
+      <div class="form-group">
+        <label>Specialization</label>
+        <select name="doc_specialization" id="edit_doc_specialization" required>
+          <option value="">Select specialization</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="Dermatologist">Dermatologist</option>
+          <option value="Neurologist">Neurologist</option>
+          <option value="Orthopedic">Orthopedic</option>
+          <option value="Pediatrician">Pediatrician</option>
+        </select>
+      </div>
+     <div class="form-group">
+        <label>Experience</label>
+        <input type="number" name="doc_exp" id="edit_doc_exp" required>
+      </div>
+      <div class="form-group">
+        <label>Fees</label>
+        <input type="number" name="doc_fees" id="edit_doc_fees" required>
+      </div>
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="number" name="doc_salary" id="edit_doc_salary" required>
+      </div>
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" name="doc_age" id="edit_doc_age" required>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" name="doc_address" id="edit_doc_address" required>
+      </div>
+
+      <button type="submit">Update Doctor</button>
+    </form>
+  </div>
+ <% if (find) { %>
+  <script>
+   
+      document.getElementById("updateForm").style.display = "block";
+      document.getElementById("findForm").style.display = "none";
+      document.getElementById("edit_doc_id").value = "<%= find.d_id %>";
+      document.getElementById("edit_doc_name").value = "<%= find.d_name %>";
+      document.getElementById("edit_doc_email").value = "<%= find.d_email %>";
+      document.getElementById("edit_doc_phone").value = "<%= find.d_phone %>";
+      document.getElementById("edit_doc_fees").value = "<%= find.d_fees %>";
+      document.getElementById("edit_doc_salary").value = "<%= find.d_salary %>";
+      document.getElementById("edit_doc_age").value = "<%= find.d_age %>";
+      document.getElementById("edit_doc_exp").value = "<%= find.d_experience %>";
+      document.getElementById("edit_doc_address").value = "<%= find.d_address %>";
+      document.getElementById("edit_doc_specialization").value = "<%= find.d_specialization %>";
+
+  </script> 
+   <% } %>
+</body>
+</html>

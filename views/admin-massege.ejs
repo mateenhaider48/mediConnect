@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Messages | MediConnect</title>
+
+  <style>
+    /* ===== GLOBAL ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f4f7fb;
+      color: #333;
+       min-height: 100vh;
+      background: url("/images/background.jpeg") 
+        no-repeat center center/cover;
+      overflow-x: hidden;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 1.6rem;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      width: 100%;
+    }
+
+    .sidebar ul li {
+      width: 100%;
+    }
+
+    .sidebar ul li a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      padding: 14px 25px;
+      font-size: 1rem;
+      transition: 0.3s;
+      border-left: 4px solid transparent;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li.active a {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid #fff;
+      font-weight: 600;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #0056b3;
+    }
+
+    /* ===== MESSAGE LIST ===== */
+    .messages-container {
+      background:rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+
+    .message-card {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .message-card:last-child {
+      border-bottom: none;
+    }
+
+    .message-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #007bff;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .message-info h3 {
+      color:black;
+      margin-bottom: 5px;
+    }
+
+    .message-info small {
+      color: black;
+      font-size: 13px;
+    }
+
+    .message-text {
+      margin-top: 6px;
+      color: black;
+      line-height: 1.5;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    .messages-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .messages-container::-webkit-scrollbar-thumb {
+      background: #007bff;
+      border-radius: 3px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-radius: 0;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h2>MediConnect</h2>
+    <ul>
+      <li><a href="/user/admin">Dashboard</a></li>
+      <li><a href="/user/admin-doctor">Doctors</a></li>
+      <li><a href="/user/admin-manage-api">Appointments</a></li>
+      <li class="active"><a href="/user/admin-messages">Messages</a></li>
+      <li><a href="/user/admin-login">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>Patient Messages</h1>
+    </header>
+
+    <div class="messages-container">
+      <div class="message-card">
+        <div class="message-avatar">A</div>
+        <div class="message-info">
+          <h3>Ali Raza <small>• ali.raza@gmail.com</small></h3>
+          <p class="message-text">Doctor appointment was very helpful. Thank you MediConnect!</p>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <div class="message-avatar">S</div>
+        <div class="message-info">
+          <h3>Sana Khan <small>• sana.khan@gmail.com</small></h3>
+          <p class="message-text">Please update the appointment timings. My doctor was unavailable.</p>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <div class="message-avatar">B</div>
+        <div class="message-info">
+          <h3>Bilal Ahmed <small>• bilal.ahmed@gmail.com</small></h3>
+          <p class="message-text">Can I reschedule my checkup from 15th Oct to 17th Oct?</p>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <div class="message-avatar">N</div>
+        <div class="message-info">
+          <h3>Nimra Tariq <small>• nimra.tariq@gmail.com</small></h3>
+          <p class="message-text">Everything is great! The new dashboard looks professional 👏</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

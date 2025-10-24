@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediConnect — Admin Dashboard</title>
+  <style>
+    /* ===== GLOBAL STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      color: #222;
+      background: linear-gradient(135deg, #f6f9fc, #eef3fb);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(#2a9df4);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.8rem 1.2rem;
+      position: fixed;
+      height: 100%;
+      box-shadow: 3px 0 10px rgba(0, 0, 0, 0.15);
+      transition: 0.3s;
+    }
+
+    .sidebar .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .sidebar nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.6rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateX(6px);
+    }
+
+    .logout-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 0.7rem 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .logout-btn:hover {
+      background: #ff2e2e;
+      transform: scale(1.03);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      margin-left: 270px;
+      padding: 2rem;
+      width: calc(100% - 270px);
+      background: url('/images/background.jpeg') no-repeat center/cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .admin-header h1 {
+      font-size: 1.8rem;
+    }
+
+    .admin-header .admin-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 25px;
+      backdrop-filter: blur(4px);
+    }
+
+    .admin-header img {
+      width: 40px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    /* ===== STATS CARDS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: rgba(0,0,0, 0.3);
+      padding: 1.5rem;
+      border-radius: 14px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      color: black;
+    }
+
+    .card p {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-top: 0.4rem;
+      color: #333;
+    }
+
+    /* ===== TABLE ===== */
+    .table-section {
+      margin-top: 2.5rem;
+      background: rgba(0,0,0,0.3);
+      padding: 1.8rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    .table-section h2 {
+      color: #333;
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e4e4e4;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background:rgba(0, 0, 0, 0.05);
+      color: black;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .status {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: white;
+      text-transform: capitalize;
+    }
+
+    .status.done { background: #28a745; }
+    .status.pending { background: #f0ad4e; }
+    .status.cancel { background: #dc3545; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">🩺 MediConnect</div>
+    <nav>
+      <a href="/user/admin" class="active">Dashboard</a>
+      <a href="/user/admin-doctor">Doctors</a>
+      <a href="/user/admin-manage-api">Appointments</a>
+      <a href="/user/admin-manage-api">Patients</a>
+      <a href="/user/admin-messages">Messages</a>
+      <a href="/user/admin-setting">Settings</a>
+    </nav>
+    <button class="logout-btn">Logout</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="admin-header">
+      <h1>Welcome, Admin 👋</h1>
+      <div class="admin-info">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Admin" />
+        <span>Admin Panel</span>
+      </div>
+    </header>
+
+    <!-- STATS CARDS -->
+    <section class="stats-grid">
+      <div class="card">
+        <h2>👨‍⚕️ Doctors</h2>
+        <p>42 Active</p>
+      </div>
+      <div class="card">
+        <h2>📅 Appointments</h2>
+        <p>158 This Week</p>
+      </div>
+      <div class="card">
+        <h2>🧑‍🤝‍🧑 Patients</h2>
+        <p>789 Registered</p>
+      </div>
+      <div class="card">
+        <h2>💬 Messages</h2>
+        <p>24 Unread</p>
+      </div>
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-section">
+      <h2>Recent Appointments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%patient.forEach(pat=>{%>
+          <tr>
+            <td><%=pat.patient_name%></td>
+            <td><%=pat.doctor%></td>
+            <td><%=pat.time%></td>
+            <td><%= new Date(pat.date).toISOString().split("T")[0]%></td>
+            <td><span class="status done"><%=pat.status%></span></td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+</body>
+</html>

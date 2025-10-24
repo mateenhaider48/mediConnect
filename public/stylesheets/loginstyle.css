@@ -1,0 +1,125 @@
+/* ===== BODY & HERO IMAGE ===== */
+body.form-body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: 
+    url("/images/background.jpeg") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+/* ===== HEADER ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #2a9df4;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* ===== FORM WRAPPER ===== */
+.container.form-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem; 
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== FORM CARD ===== */
+.form-card {
+  background: rgba(255,255,255,0.1); /* semi-transparent white */
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* stronger black shadow */
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.form-card input {
+  background-color:rgba(0,0,0,0.1);
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* black shadow */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #000; /* typed text black */
+}
+
+.form-card input::placeholder {
+  color: #000; /* placeholder text black */
+}
+.form-card input:focus {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transform: translateY(-2px);
+}
+.form-card input:hover{
+  transform: scale(1.05); 
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5); 
+}
+
+/* ===== BUTTONS ===== */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form-card .btn {
+  flex: 1;
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  background: #2a9df4; /* full blue button */
+  color: #fff; 
+  font-weight: 600;
+  border: none; /* remove ghost border */
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card .btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* black shadow on hover */
+}
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #2a9df4;        /* same blue as header */
+  color: #fff;                 /* white text */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin-top: auto;            /* push footer to bottom */
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.3); /* subtle black shadow on top */
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}

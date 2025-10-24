@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MediConnect — Book Appointment</title>
+<style>
+body {
+  font-family: "Poppins", sans-serif;
+  margin:0;
+  padding:0;
+  min-height:100vh;
+  background: url("/images/background.jpeg") no-repeat center center;
+  background-size: cover;
+  display:flex;
+  flex-direction:column;
+}
+input[type="file"]::-webkit-file-upload-button {
+      background-color: #2a9df4;
+      color: black;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+/* ===== HEADER ===== */
+.navbar {
+  position: sticky;
+  top:0;
+  background:#2a9df4;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0.8rem 2rem;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  z-index:10;
+}
+.navbar .logo span { font-weight:600; margin-left:0.5rem; }
+.nav-links a { color:#fff; text-decoration:none; margin-left:1rem; transition:0.3s; }
+.nav-links a:hover, .nav-links a.active { text-decoration:underline; }
+
+/* ===== FORM ===== */
+.container.form-wrap {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:2rem 1rem;
+  position:relative;
+  z-index:1;
+}
+
+.form-card {
+  background: rgba(255,255,255,0.1);
+  padding:2rem 2.5rem;
+  border-radius:1rem;
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  width:100%;
+  max-width:600px;
+  text-align:center;
+  position:relative;
+  z-index:0;
+}
+
+.form-card h1 { color:black; margin-bottom:1rem; }
+label { display:block; text-align:left; font-weight:600; margin-bottom:0.3rem; color:black; }
+
+input, textarea, select {
+  width:100%;
+  padding:0.8rem;
+  margin-bottom:1rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  outline:none;
+  background-color: rgba(0,0,0,0.1);
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+input::placeholder{ color:black; }
+input:focus, textarea:focus, select:focus,
+input:hover, textarea:hover, select:hover {
+  transform: scale(1.03);
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Buttons */
+.form-row { display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap; }
+.btn { flex:1; padding:0.7rem 1.5rem; border-radius:25px; background:#2a9df4; color:#fff; border:none; cursor:pointer; transition:0.3s; text-decoration: none;}
+.btn:hover { transform:translateY(-3px); box-shadow:0 4px 12px rgba(0,0,0,0.5); }
+
+/* ===== RECEIPT ===== */
+#receipt {
+  max-width:500px;
+  margin:2rem auto;
+  padding:1.5rem 2rem;
+  background:rgba(0,0,0,0.1);
+  border-radius:1rem;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  font-family:"Poppins", sans-serif;
+  color:#000;
+  display:none;
+}
+#receipt h2 { text-align:center; color:#2a9df4; margin-bottom:1rem; }
+#receipt p { margin:0.3rem 0; }
+#printReceipt {
+  display:block;
+  width:100%;
+  margin-top:1rem;
+  padding:0.7rem;
+  background:#2a9df4;
+  color:#fff;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+}
+@media print { #printReceipt { display:none; } }
+.hospital-address {
+  max-width:600px;
+  margin:1rem auto 0;
+  background: rgba(0,0,0,0.1);
+  padding:0.8rem 1rem;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  color:#111;
+  font-size:0.99rem;
+  font-weight: bold;
+  line-height:1.35;
+  text-align:center;
+}
+.hospital-address b { display:block; color:#2a9df4; margin-bottom:0.2rem; }
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align:center;
+  padding:1.5rem 1rem;
+  background:#2a9df4;
+  color:#fff;
+  box-shadow:0 -4px 15px rgba(0,0,0,0.3);
+  position:relative;
+  z-index:1;
+}
+.site-footer p { margin:0; font-size:0.95rem; }
+
+/* Responsive */
+@media(max-width:600px){ .form-row{flex-direction:column;} }
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left"><div class="logo">🩺 <span>MediConnect</span></div></div>
+</header>
+
+<div id="hospitalAddress" class="hospital-address">
+  <b>MediConnect Hospital</b>
+  123 Health Street, Gulberg II, Lahore<br>
+  Phone: +92 42 1234 5678 — Email: info@mediconnect.example
+</div>
+
+<main class="container form-wrap">
+  <div class="form-card">
+    <h1>Book Appointment</h1>
+    <form action="/user/bookapp" id="bookapp" method="post">
+      <label>Full Name</label>
+      <input type="text" name='pname' placeholder="John Doe" required />
+
+      <label>Email</label>
+      <input type="email" name='email' placeholder="john@example.com" required />
+
+      <label>Phone</label>
+      <input type="tel" name="phoneno" pattern="[0-9]{11}" maxlength="11" placeholder="03001234567" required />
+
+      <label>CNIC</label>
+      <input type="text"  name='pcnic' pattern="[0-9]{13}" maxlength="13" placeholder="1234567890123" required />
+
+      <label>Disease</label>
+      <input type="text" name="disease" placeholder="Fever / Cold / Diabetes" required />
+
+      <label>Select Doctor</label>
+      <select id="doctorSelect" name='doctor' required>
+        <option value="" data-fee="0">Choose a doctor</option>
+        <option value="Dr. Ahmed" data-fee="2000">Dr. Ahmed</option>
+        <option value="Dr. Fatima" data-fee="2500">Dr. Fatima</option>
+        <option value="Dr. Salman" data-fee="3000">Dr. Salman</option>
+        <option value="Dr. Ali" data-fee="2200">Dr. Ali</option>
+        <option value="Dr. Sara" data-fee="2700">Dr. Sara</option>
+      </select>
+
+      <label>Doctor Fee (PKR)</label>
+      <input type="text" id="doctorFee" readonly value="0" />
+
+      <label>Select Date</label>
+      <input type="date" name="date" required />
+
+      <label>Select Time</label>
+      <select required name="time">
+        <option value="">Pick time</option>
+        <option>09:00 AM</option>
+        <option>10:00 AM</option>
+        <option>11:30 AM</option>
+        <option>01:30 PM</option>
+        <option>03:00 PM</option>
+      </select>
+
+      <label>IBAN (Fixed)</label>
+      <input type="text" value="PK00 0000 0000 0000 0000 00" readonly />
+
+      <label>Upload Paid Fees Proof</label>
+      <input type="file" name="paid" accept="image/*" required />
+
+      <div class="form-row">
+        <button class="btn" type="submit">Confirm Booking</button>
+        <a class="btn" href="/user/doctor">Browse Doctors</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Receipt -->
+  <div id="receipt">
+    <h2>MediConnect Appointment Slip</h2>
+    <div class="receipt-section"></div>
+    <button id="printReceipt" onclick="printReceipt()">Print</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container"><p>© 2025 MediConnect</p></div>
+</footer>
+
+<script>
+// Update doctor fee automatically
+const doctorSelect = document.getElementById('doctorSelect');
+const doctorFee = document.getElementById('doctorFee');
+doctorSelect.addEventListener('change', () => {
+  doctorFee.value = doctorSelect.selectedOptions[0].dataset.fee;
+});
+
+// Generate token: MC-2025-XXXX
+function generateToken(){
+  const chars = '0123456789';
+  let num = '';
+  for(let i=0; i<4; i++) num += chars.charAt(Math.floor(Math.random()*chars.length));
+  return `MC-2025-${num}`;
+}
+
+// Form submission & receipt display
+const form = document.getElementById('bookapp'); // ✅ Corrected ID
+const receipt = document.getElementById('receipt');
+const receiptSection = receipt.querySelector('.receipt-section');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const token = generateToken();
+  const formData = form.querySelectorAll('input, select, textarea');
+
+  let receiptHTML = `<p><strong>Token ID:</strong> ${token}</p>`;
+  formData.forEach(f => {
+    if (f.type === 'file') {
+      receiptHTML += `<p><strong>${f.previousElementSibling.textContent}:</strong> Uploaded</p>`;
+    } else {
+      receiptHTML += `<p><strong>${f.previousElementSibling.textContent}:</strong> ${f.value}</p>`;
+    }
+  });
+
+  receiptSection.innerHTML = receiptHTML + `<p><strong>Payment Status:</strong> Paid</p>`;
+  receipt.style.display = 'block';
+  window.scrollTo(0, document.body.scrollHeight);
+});
+
+// Print receipt
+function printReceipt(){
+  const content = receipt.innerHTML;
+  const original = document.body.innerHTML;
+  document.body.innerHTML = content;
+  window.print();
+  document.body.innerHTML = original;
+  location.reload();
+}
+</script>
+</body>
+</html>
